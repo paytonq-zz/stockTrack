@@ -17,19 +17,30 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private PortfolioListView mPortfolioView;
-    private RecyclerView.LayoutManager mLayoutManager;
-
+    private RecyclerView rvItems;
+    private MainAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mLayoutManager = new LinearLayoutManager(this);
 
 
+        rvItems = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mAdapter = new MainAdapter();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAdapter.addItem("Test!!!");
+                mAdapter.notifyItemInserted(mAdapter.getItemCount());
+            }
+        });
+        rvItems.setLayoutManager(new LinearLayoutManager(this));
+        rvItems.setAdapter(mAdapter);
 
-        mPortfolioView = new PortfolioListView(getApplicationContext());
+        mPortfolioView = new PortfolioListView(getApplicationContext(), rvItems, mAdapter);
     }
 
     @Override

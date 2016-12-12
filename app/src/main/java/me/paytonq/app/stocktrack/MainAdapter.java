@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.support.design.widget.CoordinatorLayout;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by paytonq on 11/5/2016.
@@ -39,6 +42,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             super(v);
             mTextView = v;
         }
+    }
+
+    // Provide a suitable constructor (depends on the kind of dataset
+    public MainAdapter() {
+        tag = 0;
+        mDataset = new ArrayList<String>();
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -84,5 +93,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public void addItem(String s) {
+        mDataset.add(s);
     }
 }
