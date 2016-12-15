@@ -39,11 +39,14 @@ public class PortfolioListView extends LinearLayout {
     private RecyclerView.LayoutManager layoutManager;
 
 
-
-
     public PortfolioListView(Context context) {
         super(context);
         init(context);
+    }
+
+    public PortfolioListView(Context context, RecyclerView.LayoutManager lM) {
+        super(context);
+        init(context, lM);
     }
 
 
@@ -83,6 +86,35 @@ public class PortfolioListView extends LinearLayout {
         layoutManager = new LinearLayoutManager(context);
 
         rvItems.setLayoutManager(layoutManager);
+        rvItems.setAdapter(mAdapter);
+
+    }
+
+    private void init(Context context, RecyclerView.LayoutManager lM) {
+        // You'll need to define a view in layout/ that has the appropriate
+        // children views.
+
+        LayoutInflater.from(context).inflate(R.layout.activity_main, this, true);
+
+        // All the findViewById calls, setting up the items, adapter, etc
+
+        rvItems = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDataset.add("Hello!");
+                mAdapter.notifyItemInserted(mAdapter.getItemCount());
+            }
+        });
+
+
+        myDataset = new ArrayList<String>();
+        // specify an adapter (see also next example)
+        mAdapter = new MainAdapter(myDataset);
+
+        rvItems.setLayoutManager(lM);
         rvItems.setAdapter(mAdapter);
 
     }

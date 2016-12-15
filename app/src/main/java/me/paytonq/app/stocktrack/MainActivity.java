@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        mPortfolioView = new PortfolioListView(getApplicationContext());
+        mPortfolioView = new PortfolioListView(getApplicationContext(), mLayoutManager);
     }
 
     @Override
